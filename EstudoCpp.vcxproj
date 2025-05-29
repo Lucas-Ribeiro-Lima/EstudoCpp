@@ -124,6 +124,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="EstudoCpp.cpp" />
+    <ClCompile Include="Fibonnaci.cpp" />
+    <ClCompile Include="Solution.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Fibonacci.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="Solution.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="EstudoCpp.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
