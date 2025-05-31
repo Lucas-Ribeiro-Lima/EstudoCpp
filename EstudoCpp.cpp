@@ -2,10 +2,19 @@
 //
 
 #include <iostream>
+#include "Solution.h"
 
 int main()
 {
-    std::cout << "Hello World!\n";
+	std::vector<int> edges = { 2, 2, 3, -1 };
+	int node1 = 0;
+	int node2 = 1;
+
+	std::cout << "Result: " << Solution::closestMeetingNode(edges, node1, node2) << "\n";
+
+	std::system("pause");
+
+	return 0;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
