@@ -13,5 +13,13 @@ class Solution
 		static long long maximumTripletValue(std::vector<int>& nums);
 
 		static int snakesAndLadders(std::vector<std::vector<int>>& board);
+
+		static int countPairs(std::vector<int>& nums, int k);
+
+		static int countLargestGroup(int n);
+
+		static std::vector<int> applyOperations(std::vector<int>& nums);
+
+		static int minMaxDifference(int num);
 };
 

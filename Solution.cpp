@@ -138,3 +138,108 @@ int Solution::snakesAndLadders(vector<vector<int>>& board) {
 
 	return dist[boardSize];
 }
+
+int Solution::countPairs(vector<int>& nums, int k) {
+	int pairs = 0;
+
+	for (int i = 0; i < nums.size() - 1; i++) {
+		for (int j = i + 1; j < nums.size(); j++) {
+			if (nums[i] != nums[j]) continue;
+			if (i * j % k != 0) continue;
+			pairs++;
+		}
+	}
+
+	return pairs;
+}
+
+int Solution::countLargestGroup(int n) {
+	int largestSize = 0;
+	int groups[37] = {};
+	int res = 0;
+
+	for (int i = 1; i <= n; i++) {
+		int sum = 0;
+
+		for (int x = i; x > 0; x /= 10) {
+			sum += x % 10;
+		}
+
+		int val = ++groups[sum];
+
+		if (val > largestSize) {
+			largestSize = val;
+			res = 0;
+		}
+
+		if (val == largestSize) {
+			res++;
+		}
+
+	}
+
+	return res;
+}
+
+vector<int> Solution::applyOperations(vector<int>& nums) {
+	int len = nums.size();
+	
+	int insertPosition = 0;
+
+	for (int i = 0; i < len; i++) {
+		if(nums[i] == nums[i + 1]) {
+			nums[i] *= 2;
+			nums[i + 1] = 0;
+		}
+
+		if (nums[i] != 0) {
+			int tmp = nums[i];
+			nums[i] = 0;
+			nums[insertPosition++] = tmp;
+		}
+	}
+
+	if (nums[len - 1] != 0) {
+		int tmp = nums[len - 1];
+		nums[len - 1] = 0;
+		nums[insertPosition++] = tmp;
+	}
+
+	return nums;
+} 
+
+long long distributeCandies(int n, int limit) {
+	long long cnt = 0;
+
+	for (int x = 0; x <= min(n, limit); ++x) {
+		for (int y = 0; y <= min(n - x, limit); ++y) {
+			int z = n - x - y;
+			if (z >= 0 && z <= limit) {
+				cnt++;
+			}
+		}
+	}
+
+	return cnt;
+}
+
+int Solution::minMaxDifference(int num) {
+	std::string s{ std::to_string(num) };
+	std::string maxStr{ s };
+	std::string minStr{ s };
+
+	char replaceForMax = '\0', replaceForMin = '\0';
+
+	for (char c : s) {
+		if (c != '9' && replaceForMax == '\0') replaceForMax = c;
+		if (c != '0' && replaceForMin == '\0') replaceForMin = c;
+		if (replaceForMax && replaceForMin) break;
+	}
+
+	for (int i = 0; i < s.size(); i++) {
+		if (maxStr[i] == replaceForMax) maxStr[i] = '9';
+		if (minStr[i] == replaceForMin) minStr[i] = '0';
+	}
+
+	return std::stoi(maxStr) - std::stoi(minStr);
+};

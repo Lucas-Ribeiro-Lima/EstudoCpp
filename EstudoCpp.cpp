@@ -6,14 +6,8 @@
 
 int main()
 {
-	std::vector<int> edges = { 2, 2, 3, -1 };
-	int node1 = 0;
-	int node2 = 1;
-
-	std::cout << "Result: " << Solution::closestMeetingNode(edges, node1, node2) << "\n";
-
-	std::system("pause");
-
+	int num = 911;
+	Solution::minMaxDifference(num);
 	return 0;
 }
 
