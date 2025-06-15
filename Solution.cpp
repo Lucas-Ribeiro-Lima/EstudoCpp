@@ -243,3 +243,30 @@ int Solution::minMaxDifference(int num) {
 
 	return std::stoi(maxStr) - std::stoi(minStr);
 };
+
+int Solution::maxDiff(int num) {
+	std::string s{ std::to_string(num) };
+	std::string max_string{ s };
+	std::string min_string{ s };
+
+	char replaceForMax = '\0', replaceForMin = '\0';
+
+	for (char c : s) {
+		if (c != '9' && !replaceForMax) replaceForMax = c;
+		if (c != '0' && c != '1' && !replaceForMin) replaceForMin = c;
+		if (replaceForMax && replaceForMin) break;
+	}
+
+	char min_sub = '0';
+
+	for (int i = 0; i < s.size(); i++) {
+		if (max_string[i] == replaceForMax) max_string[i] = '9';
+		if (min_string[i] == replaceForMin) {
+			if (i == 0) min_sub = '1';
+			min_string[i] = min_sub;
+		}
+	}
+
+
+	return stoi(max_string) - stoi(min_string);
+}

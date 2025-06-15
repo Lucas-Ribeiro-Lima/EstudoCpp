@@ -21,5 +21,7 @@ class Solution
 		static std::vector<int> applyOperations(std::vector<int>& nums);
 
 		static int minMaxDifference(int num);
+
+		static int maxDiff(int num);
 };
 
