@@ -6,8 +6,9 @@
 
 int main()
 {
-	int num = 911;
-	Solution::minMaxDifference(num);
+	std::vector<int> nums{ 3, 5, 6, 7 };
+	int k = 2;
+	Solution::numSubSeq(nums, 9);
 	return 0;
 }
 

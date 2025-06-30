@@ -5,6 +5,7 @@
 #include <string>
 #include <queue>
 #include <tuple>
+#include <algorithm>
 
 using namespace std;
 
@@ -269,4 +270,60 @@ int Solution::maxDiff(int num) {
 
 
 	return stoi(max_string) - stoi(min_string);
+}
+
+
+std::vector<int> Solution::maxSubsequence(std::vector<int>& nums, int k) {
+	std::vector<int> slice;
+	slice.reserve(k);
+
+	for (int i = 0; i < k; i++) {
+		slice.push_back(nums[i]);
+	}
+
+	for (int i = k; i < nums.size(); i++) {
+		int min_n = INT_MAX;
+		int min_idx = -1;
+		for (int j = 0; j < slice.size(); j++) {
+			if (slice[j] < min_n) {
+				min_n = slice[j];
+				min_idx = j;
+			}
+		}
+
+		if (nums[i] > min_n) {
+			slice.erase(slice.begin() + min_idx);
+			slice.push_back(nums[i]);
+		}
+	}
+		
+
+	return slice;
+}
+
+int Solution::numSubSeq(vector<int>& nums, int target) {
+	int res = 0;
+	
+	sort(nums.begin(), nums.end());
+
+	int i = 0;
+	int j = nums.size() - 1;
+
+	while (i < nums.size()) {
+		if (nums[i] + nums[j] <= target) {
+			if (j == i) res++;
+			else res += j - i;
+		}
+
+		if (i == j) {
+			i++;
+			j = nums.size() - 1;
+		}
+		else {
+			j--;
+		}
+	}
+
+
+	return res % 1000000007;
 }

@@ -23,5 +23,11 @@ class Solution
 		static int minMaxDifference(int num);
 
 		static int maxDiff(int num);
+
+		static std::vector<int> maxSubsequence(std::vector<int>& nums, int k);
+
+		static long long kthSmallestProduct(std::vector<int>& nums1, std::vector<int>& nums2, long long k);
+
+		static int numSubSeq(std::vector<int>& nums, int target);
 };
 
