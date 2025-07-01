@@ -5,11 +5,12 @@
 #include <string>
 #include <queue>
 #include <tuple>
+#include <algorithm>
 
 using namespace std;
 
-std::array<int, 2> Solution::twoSum(std::vector<int>& nums, int target) {
-	std::unordered_map<int, int> map;
+array<int, 2> Solution::twoSum(vector<int>& nums, int target) {
+	unordered_map<int, int> map;
 
 	for (int i = 0; i < nums.size(); i++) {
 		int c = target - nums[i];
@@ -23,7 +24,7 @@ std::array<int, 2> Solution::twoSum(std::vector<int>& nums, int target) {
 }
 
 bool Solution::isPalindrome(int x) {
-	std::string s = std::to_string(x);
+	string s = to_string(x);
 	int m = s.length() / 2;
 
 	for(int i = 0, j = s.length() - 1; i < j; i++, j--) if (s[i] != s[j]) return false;
@@ -31,10 +32,10 @@ bool Solution::isPalindrome(int x) {
 	return true;
 }
 
-int Solution::closestMeetingNode(std::vector<int>& edges, int node1, int node2) {
-	auto bfs = [](std::vector<int>& edges, int node) {
-		std::queue<int> q;
-		std::vector<int> distances(edges.size(), INT_MAX);
+int Solution::closestMeetingNode(vector<int>& edges, int node1, int node2) {
+	auto bfs = [](vector<int>& edges, int node) {
+		queue<int> q;
+		vector<int> distances(edges.size(), INT_MAX);
 		int i = 1;
 
 		distances[node] = 0;
@@ -79,7 +80,7 @@ int Solution::closestMeetingNode(std::vector<int>& edges, int node1, int node2) 
 	return idx;
 }
 
-long long Solution::maximumTripletValue(std::vector<int>& nums) {
+long long Solution::maximumTripletValue(vector<int>& nums) {
 
 	auto expression = [](int i, int j, int k) {
 		return (long long) (i - j) * k;
@@ -102,15 +103,15 @@ long long Solution::maximumTripletValue(std::vector<int>& nums) {
 int Solution::snakesAndLadders(vector<vector<int>>& board) {
 	int n = board.size();
 	int boardSize = n * n;
-	vector<int> dist(boardSize + 1, -1);
-	queue<int> q;
+	std::vector<int> dist(boardSize + 1, -1);
+	std::queue<int> q;
 
 	auto getCoordinates = [&](int square) {
 		int row = (square - 1) / n;
 		int col = (square - 1) % n;
 		if (row % 2 == 1) col = n - 1 - col;
 		row = n - 1 - row;
-		return make_pair(row, col);
+		return std::make_pair(row, col);
 	};
 
 	q.push(1);
@@ -123,7 +124,7 @@ int Solution::snakesAndLadders(vector<vector<int>>& board) {
 			int next = curr + i;
 
 			int row, col;
-			tie(row, col) = getCoordinates(next);
+			std::tie(row, col) = getCoordinates(next);
 
 			if (board[row][col] != -1) {
 				next = board[row][col];
@@ -137,4 +138,104 @@ int Solution::snakesAndLadders(vector<vector<int>>& board) {
 	}
 
 	return dist[boardSize];
+}
+
+int Solution::maxDifference(string s) {
+	int map[26]{0};
+	int oddMax = 0;
+	int evenMin = INT_MAX;
+
+	for (int i = 0; i < s.size(); i++) {
+		int charCode = s[i] - 'a';
+		map[charCode]++;
+	};
+
+	for (int i = 0; i < 26; i++) {
+		if (map[i] % 2 == 0 && map[i] != 0) {
+			evenMin = min(map[i], evenMin);
+		}
+		else {
+			oddMax = max(map[i], oddMax);
+		}
+	}
+
+	return oddMax - evenMin;
+}
+
+int Solution::maximumDifference(std::vector<int>& nums) {
+	int length = nums.size(), res = -1;
+	std::vector<int> pre(length), suff(length);
+
+	pre[0] = nums[0];
+	suff[length - 1] = nums[length - 1];
+
+	for (int i = 1; i < length; i++) {
+		pre[i] = min(pre[i - 1], nums[i]);
+	}
+
+	for (int i = length - 2; i >= 0; i--) {
+		suff[i] = max(suff[i - 1], nums[i]);
+	}
+
+	for (int i = 0; i < length; i++) {
+		res = max(res, suff[i] - pre[i]);
+	}
+
+	return res;
+}
+
+vector<vector<int>> Solution::divideArray(vector<int>& nums, int k) {
+	vector<vector<int>> res;
+	int lenRes= nums.size() / 3;
+	
+	std::sort(nums.begin(), nums.end());
+
+	std::vector<int> slide;
+	slide.reserve(3);
+
+	auto isValid = [k, &nums, &slide]() {
+		int a = abs(slide[0] - slide[1]);
+		int b = abs(slide[0] - slide[2]);
+		int c = abs(slide[1] - slide[2]);
+
+		return a <= k && b <= k && c <= k;
+	};
+
+	for (int i = 0; i < nums.size(); i++) {
+		if (slide.size() < 3) {
+			slide.push_back(nums[i]);
+		}
+		else {
+			slide.erase(slide.begin());
+			slide.push_back(nums[i]);
+		}
+
+		if (slide.size() == 3 && isValid())
+		{
+			res.push_back(slide);
+			slide.erase(slide.begin(), slide.end());
+		}
+	}
+
+	if (res.size() != lenRes) return vector<vector<int>>{};
+	return res;
+}
+
+
+int Solution::possibleStringCount(string word) {
+	char last = word[0];
+	int charCnt = 1;
+	int res = 0;
+
+	for (int i = 1; i < word.size(); i++) {
+		if (word[i] == last) charCnt++;
+		else
+		{
+			last = word[i];
+			res += charCnt - 1;
+			charCnt = 1;
+		}
+	}
+
+	return res + charCnt;
 }

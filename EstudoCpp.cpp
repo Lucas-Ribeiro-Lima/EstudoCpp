@@ -6,11 +6,10 @@
 
 int main()
 {
-	std::vector<int> edges = { 2, 2, 3, -1 };
-	int node1 = 0;
-	int node2 = 1;
+	std::string word{ "abbcccc" };
 
-	std::cout << "Result: " << Solution::closestMeetingNode(edges, node1, node2) << "\n";
+
+	Solution::possibleStringCount(word);
 
 	std::system("pause");
 
