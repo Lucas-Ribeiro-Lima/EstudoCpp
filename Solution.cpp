@@ -103,15 +103,15 @@ long long Solution::maximumTripletValue(vector<int>& nums) {
 int Solution::snakesAndLadders(vector<vector<int>>& board) {
 	int n = board.size();
 	int boardSize = n * n;
-	std::vector<int> dist(boardSize + 1, -1);
-	std::queue<int> q;
+	vector<int> dist(boardSize + 1, -1);
+	queue<int> q;
 
 	auto getCoordinates = [&](int square) {
 		int row = (square - 1) / n;
 		int col = (square - 1) % n;
 		if (row % 2 == 1) col = n - 1 - col;
 		row = n - 1 - row;
-		return std::make_pair(row, col);
+		return make_pair(row, col);
 	};
 
 	q.push(1);
@@ -124,7 +124,7 @@ int Solution::snakesAndLadders(vector<vector<int>>& board) {
 			int next = curr + i;
 
 			int row, col;
-			std::tie(row, col) = getCoordinates(next);
+			tie(row, col) = getCoordinates(next);
 
 			if (board[row][col] != -1) {
 				next = board[row][col];
@@ -138,6 +138,194 @@ int Solution::snakesAndLadders(vector<vector<int>>& board) {
 	}
 
 	return dist[boardSize];
+}
+
+int Solution::countPairs(vector<int>& nums, int k) {
+	int pairs = 0;
+
+	for (int i = 0; i < nums.size() - 1; i++) {
+		for (int j = i + 1; j < nums.size(); j++) {
+			if (nums[i] != nums[j]) continue;
+			if (i * j % k != 0) continue;
+			pairs++;
+		}
+	}
+
+	return pairs;
+}
+
+int Solution::countLargestGroup(int n) {
+	int largestSize = 0;
+	int groups[37] = {};
+	int res = 0;
+
+	for (int i = 1; i <= n; i++) {
+		int sum = 0;
+
+		for (int x = i; x > 0; x /= 10) {
+			sum += x % 10;
+		}
+
+		int val = ++groups[sum];
+
+		if (val > largestSize) {
+			largestSize = val;
+			res = 0;
+		}
+
+		if (val == largestSize) {
+			res++;
+		}
+
+	}
+
+	return res;
+}
+
+vector<int> Solution::applyOperations(vector<int>& nums) {
+	int len = nums.size();
+	
+	int insertPosition = 0;
+
+	for (int i = 0; i < len; i++) {
+		if(nums[i] == nums[i + 1]) {
+			nums[i] *= 2;
+			nums[i + 1] = 0;
+		}
+
+		if (nums[i] != 0) {
+			int tmp = nums[i];
+			nums[i] = 0;
+			nums[insertPosition++] = tmp;
+		}
+	}
+
+	if (nums[len - 1] != 0) {
+		int tmp = nums[len - 1];
+		nums[len - 1] = 0;
+		nums[insertPosition++] = tmp;
+	}
+
+	return nums;
+} 
+
+long long distributeCandies(int n, int limit) {
+	long long cnt = 0;
+
+	for (int x = 0; x <= min(n, limit); ++x) {
+		for (int y = 0; y <= min(n - x, limit); ++y) {
+			int z = n - x - y;
+			if (z >= 0 && z <= limit) {
+				cnt++;
+			}
+		}
+	}
+
+	return cnt;
+}
+
+int Solution::minMaxDifference(int num) {
+	std::string s{ std::to_string(num) };
+	std::string maxStr{ s };
+	std::string minStr{ s };
+
+	char replaceForMax = '\0', replaceForMin = '\0';
+
+	for (char c : s) {
+		if (c != '9' && replaceForMax == '\0') replaceForMax = c;
+		if (c != '0' && replaceForMin == '\0') replaceForMin = c;
+		if (replaceForMax && replaceForMin) break;
+	}
+
+	for (int i = 0; i < s.size(); i++) {
+		if (maxStr[i] == replaceForMax) maxStr[i] = '9';
+		if (minStr[i] == replaceForMin) minStr[i] = '0';
+	}
+
+	return std::stoi(maxStr) - std::stoi(minStr);
+};
+
+int Solution::maxDiff(int num) {
+	std::string s{ std::to_string(num) };
+	std::string max_string{ s };
+	std::string min_string{ s };
+
+	char replaceForMax = '\0', replaceForMin = '\0';
+
+	for (char c : s) {
+		if (c != '9' && !replaceForMax) replaceForMax = c;
+		if (c != '0' && c != '1' && !replaceForMin) replaceForMin = c;
+		if (replaceForMax && replaceForMin) break;
+	}
+
+	char min_sub = '0';
+
+	for (int i = 0; i < s.size(); i++) {
+		if (max_string[i] == replaceForMax) max_string[i] = '9';
+		if (min_string[i] == replaceForMin) {
+			if (i == 0) min_sub = '1';
+			min_string[i] = min_sub;
+		}
+	}
+
+
+	return stoi(max_string) - stoi(min_string);
+}
+
+
+std::vector<int> Solution::maxSubsequence(std::vector<int>& nums, int k) {
+	std::vector<int> slice;
+	slice.reserve(k);
+
+	for (int i = 0; i < k; i++) {
+		slice.push_back(nums[i]);
+	}
+
+	for (int i = k; i < nums.size(); i++) {
+		int min_n = INT_MAX;
+		int min_idx = -1;
+		for (int j = 0; j < slice.size(); j++) {
+			if (slice[j] < min_n) {
+				min_n = slice[j];
+				min_idx = j;
+			}
+		}
+
+		if (nums[i] > min_n) {
+			slice.erase(slice.begin() + min_idx);
+			slice.push_back(nums[i]);
+		}
+	}
+		
+
+	return slice;
+}
+
+int Solution::numSubSeq(vector<int>& nums, int target) {
+	int res = 0;
+	
+	sort(nums.begin(), nums.end());
+
+	int i = 0;
+	int j = nums.size() - 1;
+
+	while (i < nums.size()) {
+		if (nums[i] + nums[j] <= target) {
+			if (j == i) res++;
+			else res += j - i;
+		}
+
+		if (i == j) {
+			i++;
+			j = nums.size() - 1;
+		}
+		else {
+			j--;
+		}
+	}
+
+
+	return res % 1000000007;
 }
 
 int Solution::maxDifference(string s) {
