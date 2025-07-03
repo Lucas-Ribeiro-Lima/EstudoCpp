@@ -32,8 +32,6 @@ public:
 
 	static int numSubSeq(std::vector<int>& nums, int target);
 
-	static int snakesAndLadders(std::vector<std::vector<int>>& board);
-
 	static int maxDifference(std::string s);
 
 	static int maximumDifference(std::vector<int>& nums);
@@ -41,5 +39,7 @@ public:
 	static std::vector<std::vector<int>> divideArray(std::vector<int>& nums, int k);
 
 	static int possibleStringCount(std::string word);
+
+	static char kthCaracter(int k);
 };
 

@@ -6,10 +6,7 @@
 
 int main()
 {
-	std::string word{ "abbcccc" };
-
-
-	Solution::possibleStringCount(word);
+	Solution::kthCaracter(5);
 
 	std::system("pause");
 

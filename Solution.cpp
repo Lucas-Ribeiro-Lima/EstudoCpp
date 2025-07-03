@@ -427,3 +427,20 @@ int Solution::possibleStringCount(string word) {
 
 	return res + charCnt;
 }
+
+char Solution::kthCaracter(int k) {
+	string word = "a";
+
+	while (word.size() < k) {
+		string tmp = "";
+
+		for (char c : word) {
+			c++;
+			tmp += c;
+		}
+
+		word += tmp;
+	}
+
+	return word[k - 1];
+};
