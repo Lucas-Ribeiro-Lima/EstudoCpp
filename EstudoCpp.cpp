@@ -6,7 +6,8 @@
 
 int main()
 {
-	Solution::kthCaracter(5);
+	std::vector<int> operations{ 0, 1, 0, 1 };
+	Solution::kthCharacter(10, operations);
 
 	std::system("pause");
 

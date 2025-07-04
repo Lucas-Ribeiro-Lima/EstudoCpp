@@ -41,5 +41,7 @@ public:
 	static int possibleStringCount(std::string word);
 
 	static char kthCaracter(int k);
+
+	static char kthCharacter(long long k, std::vector<int>& operations);
 };
 

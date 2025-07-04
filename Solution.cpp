@@ -6,6 +6,7 @@
 #include <queue>
 #include <tuple>
 #include <algorithm>
+#include <charconv>
 
 using namespace std;
 
@@ -444,3 +445,22 @@ char Solution::kthCaracter(int k) {
 
 	return word[k - 1];
 };
+
+
+char Solution::kthCharacter(long long k, vector<int>& operations) {
+	string word{ "a" };
+
+	for(int operation : operations) {
+		if (!operation) word += word;
+		else {
+			string tmp{ "" };
+			for (char c : word) {
+				int code = ++c % 97;
+				tmp += 'a' + ((char)code % 26);
+			}
+			word += tmp;
+		}
+	}
+
+	return word[k - 1];
+}
