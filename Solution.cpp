@@ -6,6 +6,7 @@
 #include <queue>
 #include <tuple>
 #include <algorithm>
+#include <ranges>
 
 using namespace std;
 
@@ -326,4 +327,34 @@ int Solution::numSubSeq(vector<int>& nums, int target) {
 
 
 	return res % 1000000007;
+}
+
+int Solution::findLHS(std::vector<int>& nums) {
+	int min = nums[0];
+
+	return 0;
+}
+
+
+int Solution::findLucky(vector<int>& arr) {
+	int lucky = -1;
+
+	unordered_map<int, int> frequency;
+
+	for (int n : arr) {
+		frequency[n]++;
+	}
+
+	int largest = INT_MIN;
+	for (auto [ k, v ] : frequency) {
+		if (k != v) continue;
+		if (v > largest) 
+		{
+			largest = v;
+			lucky = k;
+		}
+	}
+	
+
+	return lucky;
 }

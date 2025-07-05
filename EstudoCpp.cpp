@@ -6,9 +6,8 @@
 
 int main()
 {
-	std::vector<int> nums{ 3, 5, 6, 7 };
-	int k = 2;
-	Solution::numSubSeq(nums, 9);
+	std::vector<int> nums{ 1, 2, 2, 3, 3, 3 };
+	Solution::findLucky(nums);
 	return 0;
 }
 

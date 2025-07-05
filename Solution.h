@@ -29,5 +29,9 @@ class Solution
 		static long long kthSmallestProduct(std::vector<int>& nums1, std::vector<int>& nums2, long long k);
 
 		static int numSubSeq(std::vector<int>& nums, int target);
+
+		static int findLHS(std::vector<int>& nums);
+
+		static int findLucky(std::vector<int>& arr);
 };
 
