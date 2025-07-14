@@ -496,3 +496,37 @@ int Solution::findLucky(vector<int>& arr) {
 
 	return lucky;
 }
+
+bool cmp(const vector<int>& a, const vector<int>& b) {
+	if (a[0] < b[0]) return true;
+	if (a[0] == b[0] && a[1] < b[1]) return true;
+	
+	return false;
+}
+
+int Solution::maxEvents(vector<vector<int>>& events) {
+	sort(events.begin(), events.end(), cmp);
+	int attended = 0;
+	int day = 1;
+
+	for (vector<int> event : events) {
+		if (event[0] <= day && day <= event[1]) {
+			attended++;
+		}
+		day++;
+	}
+
+	return attended;
+};
+
+int Solution::getDecimalValue(ListNode* head) {
+	int val = 0;
+
+	while (head) {
+		val <<= 1;
+		val += head->val;
+		head = head->next;
+	};
+
+	return val;
+};

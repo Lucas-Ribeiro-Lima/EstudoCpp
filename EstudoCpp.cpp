@@ -4,10 +4,15 @@
 #include <iostream>
 #include "Solution.h"
 
+using namespace std;
+
 int main()
 {
-	std::vector<int> nums{ 1, 2, 2, 3, 3, 3 };
-	Solution::findLucky(nums);
+	ListNode c{ 1, nullptr };
+	ListNode b{ 0, &c };
+	ListNode a{ 1, &b };
+
+	Solution::getDecimalValue(&a);
 	return 0;
 }
 
