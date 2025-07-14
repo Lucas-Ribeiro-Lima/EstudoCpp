@@ -3,6 +3,14 @@
 #include <string>
 #pragma once
 
+struct ListNode {
+	int val;
+	ListNode *next;
+	ListNode() : val(0), next(nullptr) {};
+	ListNode(int x) : val(x), next(nullptr) {};
+	ListNode(int x, ListNode* next) : val(x), next(next) {};
+};
+
 class Solution
 {
 public:
@@ -47,5 +55,9 @@ public:
 	static int findLHS(std::vector<int>& nums);
 
 	static int findLucky(std::vector<int>& arr);
+
+	static int maxEvents(std::vector<std::vector<int>>& events);
+
+	static int getDecimalValue(ListNode* head);
 };
 
