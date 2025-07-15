@@ -8,11 +8,10 @@ using namespace std;
 
 int main()
 {
-	ListNode c{ 1, nullptr };
-	ListNode b{ 0, &c };
-	ListNode a{ 1, &b };
+	char word[10] = "Teste";
 
-	Solution::getDecimalValue(&a);
+	Solution::isValid(word);
+
 	return 0;
 }
 

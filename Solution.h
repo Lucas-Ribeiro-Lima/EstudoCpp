@@ -59,5 +59,7 @@ public:
 	static int maxEvents(std::vector<std::vector<int>>& events);
 
 	static int getDecimalValue(ListNode* head);
+
+	static bool isValid(std::string word);
 };
 

@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <charconv>
 #include <ranges>
+#include <bitset>
 
 using namespace std;
 
@@ -530,3 +531,33 @@ int Solution::getDecimalValue(ListNode* head) {
 
 	return val;
 };
+
+#define hasVowel 0x01
+#define hasConsonant 0x10
+
+static inline bool isVowel(char& _c) {
+	if(_c < 91) {
+		_c += 'a' - 'A';
+	}
+	return _c == 'a' || _c == 'e' || _c == 'i' || _c == 'o' || _c == 'u';
+}
+
+bool Solution::isValid(string word) {
+	uint8_t mask =  0x00;
+	for ( char c : word ) {
+		if(isdigit(c)) continue;
+
+		if (!isalnum(c)) {
+			return false;
+		}
+
+		if (isVowel(c)) {
+			mask |= hasVowel;
+		}
+		else {
+			mask |= hasConsonant;
+		}
+	}
+
+	return mask & hasVowel && mask & hasConsonant && word.size() >= 3;
+}
