@@ -61,5 +61,7 @@ public:
 	static int getDecimalValue(ListNode* head);
 
 	static bool isValid(std::string word);
+
+	static int maximumLength(std::vector<int>& nums);
 };
 

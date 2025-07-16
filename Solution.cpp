@@ -561,3 +561,35 @@ bool Solution::isValid(string word) {
 
 	return mask & hasVowel && mask & hasConsonant && word.size() >= 3;
 }
+
+int Solution::maximumLength(vector<int>& nums) {
+	int oddOdd = 0;
+	int evenEven = 0;
+	int alternate = 0;
+
+	//Invert the parity of first element to count as dummy of the earliest alternate sequence
+	int lastOdd = (nums[0] % 2) ^ 0b1; 
+
+	for (int n : nums) {
+		if (n % 2 == 0)
+		{
+			evenEven++;
+			if (lastOdd)
+			{
+				alternate++;
+				lastOdd = false;
+			}
+		}
+		else 
+		{
+			oddOdd++;
+			if (!lastOdd)
+			{
+				alternate++;
+				lastOdd = true;
+			}
+		}
+	}
+
+	return max({ evenEven, oddOdd, alternate });
+}

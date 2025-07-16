@@ -8,9 +8,9 @@ using namespace std;
 
 int main()
 {
-	char word[10] = "Teste";
+	vector nums{ 1, 2, 1, 1, 2, 1, 2 };
 
-	Solution::isValid(word);
+	Solution::maximumLength(nums);
 
 	return 0;
 }
