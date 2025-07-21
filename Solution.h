@@ -67,4 +67,6 @@ public:
 	static std::vector<std::string> removeSubFolders(std::vector<std::string>& folder);
 
 	static std::vector<std::vector<std::string>> deleteDuplicateFolder(std::vector<std::vector<std::string>>& paths);
+
+	static std::string makeFancyString(std::string s);
 };

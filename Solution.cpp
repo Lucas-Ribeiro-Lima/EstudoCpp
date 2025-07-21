@@ -686,3 +686,17 @@ vector<vector<string>> Solution::deleteDuplicateFolder(vector<vector<string>>& p
 
 	return res;
 }; 
+
+
+string Solution::makeFancyString(string s) {
+	if (s.size() < 3) return s;
+
+	string res{ s.begin(), s.begin() + 2 };
+
+	for (int i = 2; i < s.size(); i++) {
+		if (s[i - 2] == s[i - 1] && s[i - 1] == s[i]) continue;
+		res += s[i];
+	}
+
+	return res;
+};

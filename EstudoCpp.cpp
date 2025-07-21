@@ -8,9 +8,9 @@ using namespace std;
 
 int main()
 {
-	vector<vector<string>> paths = {{"c"}, {"a"}, {"a", "b"}, {"c", "d"}};
+	string s = "leeetcode";
 
-	Solution::deleteDuplicateFolder(paths);
+	Solution::makeFancyString(s);
 
 	return 0;
 }
