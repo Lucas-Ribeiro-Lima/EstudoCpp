@@ -5,7 +5,7 @@
 
 struct ListNode {
 	int val;
-	ListNode *next;
+	ListNode* next;
 	ListNode() : val(0), next(nullptr) {};
 	ListNode(int x) : val(x), next(nullptr) {};
 	ListNode(int x, ListNode* next) : val(x), next(next) {};
@@ -63,5 +63,8 @@ public:
 	static bool isValid(std::string word);
 
 	static int maximumLength(std::vector<int>& nums);
-};
 
+	static std::vector<std::string> removeSubFolders(std::vector<std::string>& folder);
+
+	static std::vector<std::vector<std::string>> deleteDuplicateFolder(std::vector<std::vector<std::string>>& paths);
+};

@@ -9,6 +9,7 @@
 #include <charconv>
 #include <ranges>
 #include <bitset>
+#include <functional>
 
 using namespace std;
 
@@ -593,3 +594,84 @@ int Solution::maximumLength(vector<int>& nums) {
 
 	return max({ evenEven, oddOdd, alternate });
 }
+
+static vector<string> build_prefix(string path) {
+	vector<string> prefix{ "" };
+	for (int i = 1; path[i] != '\0'; i++) {
+		if (path[i] == '/') prefix.push_back("");
+		else {
+			prefix.back() += path[i];
+		}
+	}
+
+	return prefix;
+}
+
+vector<string> Solution::removeSubFolders(vector<string>& folder) {
+	sort(folder.begin(), folder.end());
+	vector<string> res{ folder[0] };
+
+
+	for (int i = 1; i < folder.size(); i++) {
+		string curr = folder[i];
+
+		string lastSubpath = res.back();
+		bool isSubFolder = true;
+
+		for (int j = 0; j < lastSubpath.size() && j < curr.size(); j++) {
+ 			if (curr[j] != lastSubpath[j]) {
+				isSubFolder = false;
+				break;
+			}
+
+			if (j == lastSubpath.size() - 1 && curr[j + 1] != '\0' && curr[j + 1] != '/') isSubFolder = false;
+		}
+
+		if (!isSubFolder) {
+			res.push_back(curr);
+		}
+	}
+
+	return res;
+}
+
+struct TriePath {
+	unordered_map<string, TriePath> path;
+};
+
+string dfsHash(TriePath& node, unordered_map<string, int> hashes_map){
+	string hash = "";
+
+	for (auto& [ name, child ] : node.path) {
+		string sub_hash = dfsHash(child, hashes_map);
+
+		hashes_map[sub_hash]++;
+
+		hash += name + sub_hash;
+	}
+
+	return hash;
+};
+
+vector<vector<string>> Solution::deleteDuplicateFolder(vector<vector<string>>& paths) {
+	TriePath root;
+
+	TriePath* curr = &root;
+
+	// [][]
+	for (int i = 0; i < paths.size(); i++) {
+		curr = &root;
+		// [] strings
+		for (int j = 0; j < paths[i].size(); j++) {
+			curr = &(curr->path[paths[i][j]]);
+		}
+	}
+
+	curr = &root;
+
+	unordered_map<string, TriePath*> folderHash;
+
+	string hash_val = dfsTriePath(root);
+
+	return vector<vector<string>>{ { "" } };
+}; 

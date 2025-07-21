@@ -8,9 +8,9 @@ using namespace std;
 
 int main()
 {
-	vector nums{ 1, 2, 1, 1, 2, 1, 2 };
+	vector<vector<string>> paths = {{"a", "b"}, {"c", "d"}, {"c"}, {"a"}};
 
-	Solution::maximumLength(nums);
+	Solution::deleteDuplicateFolder(paths);
 
 	return 0;
 }
