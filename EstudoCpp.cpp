@@ -8,7 +8,7 @@ using namespace std;
 
 int main()
 {
-	vector<vector<string>> paths = {{"a", "b"}, {"c", "d"}, {"c"}, {"a"}};
+	vector<vector<string>> paths = {{"c"}, {"a"}, {"a", "b"}, {"c", "d"}};
 
 	Solution::deleteDuplicateFolder(paths);
 

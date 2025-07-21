@@ -637,41 +637,52 @@ vector<string> Solution::removeSubFolders(vector<string>& folder) {
 
 struct TriePath {
 	unordered_map<string, TriePath> path;
+	string sub_tree_hash = "";
 };
 
-string dfsHash(TriePath& node, unordered_map<string, int> hashes_map){
+string dfsHash(TriePath& node, unordered_map<string, int>& hashes_map){
 	string hash = "";
 
 	for (auto& [ name, child ] : node.path) {
 		string sub_hash = dfsHash(child, hashes_map);
-
-		hashes_map[sub_hash]++;
-
 		hash += name + sub_hash;
 	}
+
+	node.sub_tree_hash = hash;
+	if(hash != "") hashes_map[hash]++;
 
 	return hash;
 };
 
+void dfsDuplicated(TriePath& node, unordered_map<string, int>& hashes_map, vector<string>& curr_path, vector<vector<string>>& res) {
+	for (auto& [name, child] : node.path) {
+		if (hashes_map[child.sub_tree_hash] > 1) continue; // skip duplicated subtree
+
+		curr_path.push_back(name);
+		res.push_back(curr_path); // store the valid path
+		dfsDuplicated(child, hashes_map, curr_path, res);
+		curr_path.pop_back();
+	}
+}
+
 vector<vector<string>> Solution::deleteDuplicateFolder(vector<vector<string>>& paths) {
 	TriePath root;
 
-	TriePath* curr = &root;
-
 	// [][]
 	for (int i = 0; i < paths.size(); i++) {
-		curr = &root;
+		TriePath* curr = &root;
 		// [] strings
 		for (int j = 0; j < paths[i].size(); j++) {
 			curr = &(curr->path[paths[i][j]]);
 		}
 	}
 
-	curr = &root;
+	unordered_map<string, int> hashes_map;
+	dfsHash(root, hashes_map);
 
-	unordered_map<string, TriePath*> folderHash;
+	vector<vector<string>> res;
+	vector<string> curr_path;
+	dfsDuplicated(root, hashes_map, curr_path, res);
 
-	string hash_val = dfsTriePath(root);
-
-	return vector<vector<string>>{ { "" } };
+	return res;
 }; 
