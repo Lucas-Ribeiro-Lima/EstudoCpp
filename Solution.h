@@ -69,4 +69,10 @@ public:
 	static std::vector<std::vector<std::string>> deleteDuplicateFolder(std::vector<std::vector<std::string>>& paths);
 
 	static std::string makeFancyString(std::string s);
+
+	static void transposeMatrix(std::vector<std::vector<int>>& matrix);
+
+	static int maximumGain(std::string s, int x, int y);
+
+	static std::vector<std::pair<int, int>> findSubstrings(std::string s, std::string pattern);
 };

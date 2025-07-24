@@ -10,6 +10,7 @@
 #include <ranges>
 #include <bitset>
 #include <functional>
+#include <ranges>
 
 using namespace std;
 
@@ -700,3 +701,81 @@ string Solution::makeFancyString(string s) {
 
 	return res;
 };
+
+
+void Solution::transposeMatrix(vector<vector<int>>& matrix) {
+	vector<vector<int>> t{ matrix[0].size(), vector<int>{ (int) matrix.size(), 0 }};
+
+	for (int i = 0; i < matrix.size(); i++) {
+		for (int j = 0; j < matrix[i].size(); j++) {
+			t[j][i] = matrix[i][j];
+		}
+	}
+
+	matrix = t;
+
+	return;
+}
+
+vector<int> createLps(string pattern) {
+	vector<int> lps(pattern.size(), 0);
+
+	int left = 0;
+	int right = 1;
+	while (right < pattern.size()) {
+		if (pattern[left] == pattern[right]) {
+			lps[right] = left + 1;
+			left++;
+		} 
+
+		else if (left > 0) {
+			left = lps[left - 1];
+			continue;
+		}
+
+		else lps[right] = 0;
+		right++;
+	}
+
+	return lps;
+};
+
+vector<pair<int, int>> Solution::findSubstrings(string s, string pattern) {
+	vector<int> lps = createLps(pattern);
+	vector<pair<int, int>> substrings;
+
+	int idx = 0;
+	int i = 0;
+	while(s[i] != '\0') {
+		if (s[i] != pattern[idx]) {
+			if(idx != 0) idx = lps[idx - 1];
+			else i++;
+			continue;
+		}
+
+		idx++;
+		if (idx >= lps.size()) {
+			substrings.push_back(pair<int, int>{ i - (lps.size() - 1), i });
+			idx = 0;
+		}
+
+		i++;
+	}
+
+	return substrings;
+}
+
+int Solution::maximumGain(string s, int x, int y) {
+	int size = s.size() - 1;
+
+	string rs;
+
+	for (int i = size; i >= 0; i--) {
+		rs += s[i];
+	}
+
+	vector<int> slps = createLps(s); 
+	vector<int> rlps = createLps(rs);
+
+	return 0;
+}

@@ -8,9 +8,14 @@ using namespace std;
 
 int main()
 {
-	string s = "leeetcode";
+	string s = "abaabab";
+	string pattern = "ab";
 
-	Solution::makeFancyString(s);
+	vector<pair<int, int>> r = Solution::findSubstrings(s, pattern);
+
+	for (auto& [ s, e ] : r) {
+		cout << "[" << s << " " << e << "]" << "\n";
+	}
 
 	return 0;
 }
