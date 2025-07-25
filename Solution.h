@@ -75,4 +75,6 @@ public:
 	static int maximumGain(std::string s, int x, int y);
 
 	static std::vector<std::pair<int, int>> findSubstrings(std::string s, std::string pattern);
+
+	static int maxSum(std::vector<int>& nums);
 };

@@ -2,6 +2,7 @@
 #include <array>
 #include <vector>
 #include <unordered_map>
+#include <unordered_set>
 #include <string>
 #include <queue>
 #include <tuple>
@@ -766,16 +767,28 @@ vector<pair<int, int>> Solution::findSubstrings(string s, string pattern) {
 }
 
 int Solution::maximumGain(string s, int x, int y) {
-	int size = s.size() - 1;
+	return 0;
+}
 
-	string rs;
 
-	for (int i = size; i >= 0; i--) {
-		rs += s[i];
+int Solution::maxSum(vector<int>& nums) {
+	int res = 0;
+	int max_value = INT_MIN;
+
+	unordered_set<int> set;
+
+	for (int n : nums) {
+		if (n & (1 << 31)) {
+			max_value = max(max_value, n);
+			continue;
+		}
+
+		if (set.contains(n)) continue;
+
+		res += n;
+		set.insert(n);
 	}
 
-	vector<int> slps = createLps(s); 
-	vector<int> rlps = createLps(rs);
-
-	return 0;
+	if (!res && !set.contains(0)) return max_value;
+	return res;
 }
